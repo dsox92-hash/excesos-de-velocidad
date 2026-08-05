@@ -6,8 +6,9 @@ import './App.css'
 const SPEED_LIMIT = 66
 const DEFAULT_CENTER = [6.244203, -75.581211]
 const DEFAULT_ZOOM = 12
-const DEFAULT_DATASET = '/data/BEA_DATOSEXPORTADOS.xls'
-const DEFAULT_POINTS_CATALOG = '/data/puntos_control.json'
+const BASE_URL = import.meta.env.BASE_URL
+const DEFAULT_DATASET = `${BASE_URL}data/BEA_DATOSEXPORTADOS.xls`
+const DEFAULT_POINTS_CATALOG = `${BASE_URL}data/puntos_control.json`
 const TRAMO_LOCATION_CORRECTIONS = {
   'PEATONAL - RELOJ': 'RELOJ - IGUANA',
 }
@@ -567,7 +568,7 @@ function waitForImagesInDocument(doc, timeoutMs = 7000) {
 }
 
 async function exportEvidenceReport(record) {
-  const logoUrl = `${window.location.origin}/brand/logo.png`
+  const logoUrl = new URL(`${BASE_URL}brand/logo.png`, window.location.origin).toString()
   const mapUrl = buildStaticMapUrl(record)
   const generatedAt = new Date().toLocaleString('es-CO')
   const printableDate = new Date().toLocaleDateString('es-CO')
@@ -1090,7 +1091,7 @@ function App() {
     <main className="app-shell">
       <header className="hero-panel">
         <div className="brand-block">
-          <img src="/brand/logo.png" alt="Logo corporativo" className="brand-logo" />
+          <img src={`${BASE_URL}brand/logo.png`} alt="Logo corporativo" className="brand-logo" />
           <div>
             <p className="eyebrow">Analisis de Velocidad BEA</p>
             <h1>Excesos de velocidad superiores a {SPEED_LIMIT} km/h</h1>
