@@ -1,0 +1,29 @@
+plugins = []
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "c:\\Users\\ProBook core i7.DESKTOP-TAUVPOD\\App Transporte\\Cootransblan Excesos de velocidad\\app-excesos\\dist"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "c:\\Users\\ProBook core i7.DESKTOP-TAUVPOD\\App Transporte\\Cootransblan Excesos de velocidad\\app-excesos"
+command = "npm run build"
+
+[build.environment]
+NODE_VERSION = "22"
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
