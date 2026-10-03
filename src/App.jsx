@@ -13,6 +13,15 @@ const TRAMO_LOCATION_CORRECTIONS = {
   'PEATONAL - RELOJ': 'RELOJ - IGUANA',
 }
 
+function formatExcelDateTime(value) {
+  if (value === '' || value == null) return ''
+  const serial = typeof value === 'number' ? value : Number(String(value).trim())
+  if (!Number.isFinite(serial)) return String(value)
+  const date = new Date(Math.round((serial - 25569) * 86400000))
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${pad(date.getUTCDate())}/${pad(date.getUTCMonth() + 1)}/${date.getUTCFullYear()} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}:${pad(date.getUTCSeconds())}`
+}
+
 function toNumber(value) {
   if (typeof value === 'number') {
     return value
@@ -24,6 +33,7 @@ function toNumber(value) {
 
   const normalized = value.replace(',', '.').trim()
   return Number(normalized)
+  
 }
 
 function normalizePlace(value) {
@@ -381,7 +391,7 @@ function buildAnalysis(workbook) {
         horaProgramada: row.ATM_HORAPROG || '',
         horaBEA: row.ATM_HORABEA || '',
         velocidad: speed,
-        fechaHoraVelocidad: row.ATM_FHVELMAX || '',
+        fechaHoraVelocidad: formatExcelDateTime(row.ATM_FHVELMAX),
         exceso: speed - SPEED_LIMIT,
         idTurno: marca?.AMR_IDTURNO || '',
         ruta: turno?.VTR_RUTADESCRIP || '',
